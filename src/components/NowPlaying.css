@@ -1,0 +1,93 @@
+.nowPlaying {
+    background-color: navy;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 50px;
+    height: 15vh;
+    width: 80%;
+    margin: 0 auto;
+    color: #cfcfcf;
+    border-radius: 100px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -120px;
+}
+
+.nowPlaying ul {
+    display: flex;
+}
+
+.nowPlaying ul li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 50px;
+    height: 30px;
+    width: 30px;
+    margin-left: 10px;
+    font-size: 12px;
+}
+
+.playingImage {
+    height: 50px;
+    width: 50px;
+    overflow: hidden;
+    border-radius: 100px;
+}
+
+.playingImage img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.playingTitle {
+    margin-left: 15px;
+}
+
+.playingTitle h4 {
+    font-size: 14px;
+}
+
+.playingTitle p {
+    font-size: 8px;
+}
+
+.playerMainActions {
+    margin-left: 50px;
+}
+
+.playerMainActions ul li {
+    background-color: transparent;
+}
+
+.playerMainActions ul li:nth-child(2) {
+    background-color: rgba(207, 66, 11, 1);
+}
+
+.waves {
+    display: flex;
+    align-items: center;
+    margin-left: 60px;
+    height: 30px;
+}
+
+.waves img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.waves p {
+    margin-left: 10px;
+    font-size: 10px;
+}
+
+.moreActions {
+    margin-left: 30px;
+}
