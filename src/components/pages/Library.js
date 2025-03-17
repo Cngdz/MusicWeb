@@ -13,6 +13,7 @@ class Library extends Component {
 
     render() {
         const { activeTab } = this.state;
+        const { onSongSelect } = this.props;
         return (
             <div className="page-transition">
                 <h1>Your Library</h1>
@@ -31,8 +32,8 @@ class Library extends Component {
                     </button>
                 </div>
                 <div className="tab-content">
-                    {activeTab === 'favorites' && <ListSong />}
-                    {activeTab === 'uploaded' && <ListSong />}
+                    {activeTab === 'favorites' && <ListSong onSongSelect={onSongSelect} />}
+                    {activeTab === 'uploaded' && <ListSong onSongSelect={onSongSelect} />}
                 </div>
             </div>
         );

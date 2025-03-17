@@ -1,34 +1,39 @@
 import React, { Component } from 'react';
 import './ListSong.css';
-import image from '../assets/image/vechibi1-9103.jpg';
-class   ListSong extends Component {
+import SongInfo from './SongInfo';
+
+class ListSong extends Component {
+    state = {
+        songs: [],
+        loading: true,
+        error: null
+    };
+
+    componentDidMount() {
+        this.fetchSongs();
+    }
+
+    fetchSongs = async () => {
+        try {
+            const response = await fetch('http://localhost:5000/api/songs');
+            const data = await response.json();
+            this.setState({ songs: data, loading: false });
+        } catch (error) {
+            this.setState({ error: 'Failed to fetch songs', loading: false });
+        }
+    };
+
     render() {
-        const songs = [
-            { title: 'Intentions', artist: 'Justin Bieber', image: image },
-            { title: 'What A Man Gotta Do', artist: 'Jonas Brothers', image: image },
-            { title: 'Closer', artist: 'Chain Smokers', image: image },
-            { title: 'To Die For', artist: 'Sam Smith', image: image },
-            { title: 'Heat Waves', artist: 'Glass Animals', image: image },
-            { title: 'Stay', artist: 'The Kid LAROI & Justin Bieber', image: image },
-            { title: 'Peaches', artist: 'Justin Bieber', image: image },
-            { title: 'Love Yourself', artist: 'Justin Bieber', image: image }
-        ];
+        const { songs, loading, error } = this.state;
+        const { onSongSelect } = this.props;
+
+        if (loading) return <div>Loading...</div>;
+        if (error) return <div>{error}</div>;
 
         return (
             <div className="listSong">
-                {songs.map((song, index) => (
-                    <div className="songItem" key={index}>
-                        <div className="songImage">
-                            <img src={song.image} alt={song.title} />
-                        </div>
-                        <div className="songDetails">
-                            <h4>{song.title}</h4>
-                            <p>{song.artist}</p>
-                        </div>
-                        <div className="downloadIcon">
-                            <i className="fa-solid fa-arrow-down"></i>
-                        </div>
-                    </div>
+                {songs.map((song) => (
+                    <SongInfo key={song.id} {...song} onSongSelect={onSongSelect} />
                 ))}
             </div>
         );

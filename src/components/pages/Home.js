@@ -3,11 +3,11 @@ import MainContent from '../MainContent';
 
 class Home extends Component {
     render() {
-        const { lyrics } = this.props;
+        const { onSongSelect, currentSong } = this.props;
         return (
             <div className="home-page">
                 <div className="page-transition">
-                    <MainContent lyrics={lyrics} />
+                    <MainContent currentSong={currentSong} onSongSelect={onSongSelect} />
                 </div>
             </div>
         );
