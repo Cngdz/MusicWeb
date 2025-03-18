@@ -19,6 +19,10 @@ class App extends Component {
     this.setState({ currentSong: song });
   };
 
+  handleSongUpdate = (updatedSong) => {
+    this.setState({ currentSong: updatedSong });
+  };
+
   render() {
 
     return (
@@ -31,17 +35,20 @@ class App extends Component {
               <div className="content-area">
                 <Routes>
                   <Route exact path="/" element={<Home onSongSelect={this.handleSongSelect} currentSong={this.state.currentSong} />} />
-                  <Route path="/search" element={<Search onSongSelect={this.handleSongSelect} />} />
+                  <Route path="/search" element={<Search onSongSelect={this.handleSongSelect} currentSong={this.state.currentSong} />} />
                   <Route
                     path="/library"
-                    element={<Library onSongSelect={this.handleSongSelect} />}
+                    element={<Library onSongSelect={this.handleSongSelect} currentSong={this.state.currentSong} />}
                   />
                   <Route path="/upload" element={<Upload onSongSelect={this.handleSongSelect} />} />
                 </Routes>
               </div>
             </div>
           </div>
-          <NowPlaying currentSong={this.state.currentSong} />
+          <NowPlaying
+            currentSong={this.state.currentSong}
+            onSongUpdate={this.handleSongUpdate}
+          />
         </div>
       </Router>
     );

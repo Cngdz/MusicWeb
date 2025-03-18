@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './MainContent.css';
 import SongInfo from './SongInfo';
 import ListSong from './ListSong';
+import imageee from '../assets/image/vechibi1-9103.jpg'
 
 class MainContent extends Component {
     render() {
@@ -11,7 +12,7 @@ class MainContent extends Component {
             title: "Select a song",
             album: "",
             artist: "Click any song to play",
-            image: "default-image-url"
+            image: imageee
         };
 
         return (
@@ -30,7 +31,10 @@ class MainContent extends Component {
                         <img src={displaySong.image} alt={displaySong.title} />
                     </div>
                     <div className='ListSong'>
-                        <ListSong onSongSelect={onSongSelect} />
+                        <ListSong
+                            filter="all"
+                            onSongSelect={onSongSelect}
+                        />
                     </div>
                 </div>
             </div>

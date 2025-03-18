@@ -92,6 +92,19 @@
     margin-left: 30px;
 }
 
+.moreActions ul li i.fa-heart {
+    transition: all 0.3s ease;
+}
+
+.moreActions ul li i.fa-solid.fa-heart {
+    color: #ff4b4b;
+    transform: scale(1.1);
+}
+
+.moreActions ul li:hover {
+    transform: scale(1.1);
+}
+
 .audioError {
     position: absolute;
     top: -30px;

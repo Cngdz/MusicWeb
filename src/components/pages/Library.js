@@ -32,7 +32,7 @@ class Library extends Component {
                     </button>
                 </div>
                 <div className="tab-content">
-                    {activeTab === 'favorites' && <ListSong onSongSelect={onSongSelect} />}
+                    {activeTab === 'favorites' && <ListSong filter="favorites" onSongSelect={onSongSelect} />}
                     {activeTab === 'uploaded' && <ListSong onSongSelect={onSongSelect} />}
                 </div>
             </div>
