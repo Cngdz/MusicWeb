@@ -121,12 +121,11 @@ def get_downloaded_songs():
         cursor = conn.cursor()
         cursor.execute('SELECT * FROM downloads')
         songs = cursor.fetchall()
-        return jsonify([dict(zip([col[0] for col in cursor.description], song)) for song in songs])
+        result = [dict(zip([col[0] for col in cursor.description], song)) for song in songs]
+        conn.close()
+        return jsonify(result)
     except Exception as e:
         return jsonify({'error': str(e)}), 500
-    finally:
-        cursor.close()
-        conn.close()
 
 @api.route('/files/<path:filename>', methods=['GET'])
 def serve_file(filename):

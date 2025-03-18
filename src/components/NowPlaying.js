@@ -157,12 +157,17 @@ class NowPlaying extends Component {
         const { currentSong } = this.props;
         const { isPlaying, error, isFavorite, duration, currentTime, localSource } = this.state;
 
-        // Get the audio source - prioritize local path from currentSong, then localSource, then online source
+        // Get the audio source - prioritize local path
         const filename = currentSong?.localPath ? currentSong.localPath.split('\\').pop().split('/').pop() : '';
-        console.log('Filename:', filename);
+        const imageFilename = currentSong?.image ? currentSong.image.split('\\').pop().split('/').pop() : '';
+
         const audioSource = filename
             ? `http://localhost:5000/api/files/${encodeURIComponent(filename)}`
             : (localSource || currentSong?.source || '');
+
+        const imageSource = currentSong?.isDownloaded
+            ? `http://localhost:5000/api/files/${encodeURIComponent(imageFilename)}`
+            : currentSong?.image;
 
         return (
             <div className="nowPlaying">
@@ -178,7 +183,7 @@ class NowPlaying extends Component {
                         />
                         {error && <div className="audioError">{error}</div>}
                         <div className="playingImage">
-                            <img src={currentSong.image} alt={currentSong.title} />
+                            <img src={imageSource} alt={currentSong.title} />
                         </div>
                         <div className="playingTitle">
                             <h4>{currentSong.title}</h4>
