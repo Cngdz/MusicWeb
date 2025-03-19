@@ -6,7 +6,6 @@
 
 .tab-button {
     padding: 20px;
-    /* Thay đổi giá trị này để điều chỉnh khoảng cách */
     border: none;
     border-radius: 20px;
     background-color: #333;
@@ -15,11 +14,8 @@
     transition: all 0.3s ease;
     display: flex;
     align-items: center;
-    /* Căn dọc */
     justify-content: center;
-    /* Căn ngang */
     width: auto;
-    /* Đảm bảo button tự động điều chỉnh chiều rộng theo nội dung */
 }
 
 .tab-button.active {
@@ -34,7 +30,6 @@
 .tab-button i {
     font-size: 14px;
     margin-right: 8px;
-    /* Thêm khoảng cách giữa icon và chữ */
 }
 
 .tab-content {

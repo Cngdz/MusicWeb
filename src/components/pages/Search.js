@@ -1,26 +1,13 @@
-import React, { Component } from 'react';
-import './Search.css';
+import React from "react";
 
-class Search extends Component {
-    render() {
-        return (
-            <div className="page-transition">
-                <form>
-                    <div class="fx fx-gap">
-                        <div>
-                            <input type="text" placeholder="Search" required />
-                        </div>
-                        <div id="search-icon">
-                            <button type="submit">
-                                <div id="search-icon-circle"></div>
-                                <span></span>
-                            </button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        );
-    }
+class Search extends React.Component {
+  render() {
+    return (
+      <div>
+        <h1>Search Page</h1>
+      </div>
+    );
+  }
 }
 
 export default Search;

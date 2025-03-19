@@ -6,13 +6,25 @@ class Library extends Component {
     state = {
         activeTab: 'favorites',
         downloads: [],
+        uploads: [],
         loading: false,
         error: null
     };
 
     componentDidMount() {
-        this.fetchDownloads();
+        this.fetchUploads();
     }
+
+    fetchUploads = async () => {
+        this.setState({ loading: true });
+        try {
+            const response = await fetch('http://localhost:5000/api/uploads');
+            const data = await response.json();
+            this.setState({ uploads: data, loading: false });
+        } catch (error) {
+            this.setState({ error: 'Failed to fetch uploads', loading: false });
+        }
+    };
 
     fetchDownloads = async () => {
         this.setState({ loading: true });
@@ -29,11 +41,13 @@ class Library extends Component {
         this.setState({ activeTab: tab });
         if (tab === 'downloads') {
             this.fetchDownloads();
+        } else if (tab === 'uploaded') {
+            this.fetchUploads();
         }
     };
 
     render() {
-        const { activeTab, downloads, loading, error } = this.state;
+        const { activeTab, downloads, uploads, loading, error } = this.state;
         const { onSongSelect } = this.props;
         return (
             <div className="page-transition">
@@ -60,7 +74,27 @@ class Library extends Component {
                 </div>
                 <div className="tab-content">
                     {activeTab === 'favorites' && <ListSong filter="favorites" onSongSelect={onSongSelect} />}
-                    {activeTab === 'uploaded' && <ListSong onSongSelect={onSongSelect} />}
+                    {activeTab === 'uploaded' && (
+                        loading ? (
+                            <div>Loading uploads...</div>
+                        ) : error ? (
+                            <div className="error">{error}</div>
+                        ) : (
+                            <div className="listSong">
+                                {uploads.map(song => (
+                                    <div key={song.id} className="songInfo" onClick={() => onSongSelect(song)}>
+                                        <div className="songImage">
+                                            <img src={song.image} alt={song.title} />
+                                        </div>
+                                        <div className="songDetails">
+                                            <h2>{song.title}</h2>
+                                            <h4>{song.artist}</h4>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        )
+                    )}
                     {activeTab === 'downloads' && (
                         loading ? (
                             <div>Loading downloads...</div>

@@ -156,14 +156,17 @@ class NowPlaying extends Component {
     render() {
         const { currentSong } = this.props;
         const { isPlaying, error, isFavorite, duration, currentTime, localSource } = this.state;
-
+        console.log('Local source:', localSource);
+        console.log('Current song:', currentSong);
+        console.log('Current song source:', currentSong?.source);
         // Get the audio source - prioritize local path
         const filename = currentSong?.localPath ? currentSong.localPath.split('\\').pop().split('/').pop() : '';
         const imageFilename = currentSong?.image ? currentSong.image.split('\\').pop().split('/').pop() : '';
-
         const audioSource = filename
             ? `http://localhost:5000/api/files/${encodeURIComponent(filename)}`
             : (localSource || currentSong?.source || '');
+        
+        console.log('Audio source:', audioSource);
 
         const imageSource = currentSong?.isDownloaded
             ? `http://localhost:5000/api/files/${encodeURIComponent(imageFilename)}`

@@ -37,6 +37,16 @@ def init_db():
             replay INTEGER DEFAULT 0
         )
     ''')
+
+    # Create uploads table
+    c.execute('''
+        CREATE TABLE IF NOT EXISTS uploads (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            title TEXT NOT NULL,
+            artist TEXT NOT NULL,
+            source TEXT NOT NULL
+        )
+    ''')
     
     conn.commit()
     conn.close()

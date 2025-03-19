@@ -2,14 +2,60 @@ from flask import Blueprint, request, jsonify, send_from_directory
 import sqlite3
 import os
 from download_manager import DownloadManager
+from upload_manager import UploadManager
 from models import Song
 
 api = Blueprint('api', __name__)
 download_manager = DownloadManager()
+upload_manager = UploadManager()
 
 def get_db():
     db_path = os.path.join(os.path.dirname(__file__), 'songs.sqlite')
     return sqlite3.connect(db_path)
+
+@api.route('/upload', methods=['POST'])
+def upload_song():
+    try:
+        title = request.form['title']
+        artist = request.form['artist']
+        file = request.files['file']
+
+        if not file:
+            return jsonify({'error': 'No file provided'}), 400
+
+        file_path = upload_manager.save_file(file)
+        source = f'http://localhost:5000/api/uploads/{os.path.basename(file_path)}'
+
+        conn = get_db()
+        cursor = conn.cursor()
+        cursor.execute('''
+            INSERT INTO uploads (title, artist, source)
+            VALUES (?, ?, ?)
+        ''', (title, artist, source))
+        conn.commit()
+        conn.close()
+
+        return jsonify({'message': 'Upload successful', 'source': source}), 201
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@api.route('/uploads', methods=['GET'])
+def get_uploaded_songs():
+    try:
+        conn = get_db()
+        cursor = conn.cursor()
+        cursor.execute('SELECT * FROM uploads')
+        songs = cursor.fetchall()
+        result = [dict(zip([col[0] for col in cursor.description], song)) for song in songs]
+        conn.close()
+        return jsonify(result)
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@api.route('/uploads/<path:filename>', methods=['GET'])
+def serve_uploaded_file(filename):
+    print("Serving from directory:", upload_manager.upload_dir)
+    return send_from_directory(upload_manager.upload_dir, filename)
 
 @api.route('/download/<string:id>', methods=['POST'])
 def download_song_by_id(id):
