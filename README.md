@@ -1,70 +1,103 @@
-# Getting Started with Create React App
+# Music Web App - React & Flask
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is a full-stack music web application built with React (frontend) and Flask (backend). It supports music upload, download, playback, lyrics extraction, and Dockerized deployment.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- 🎵 Upload, download, and play music files
+- ❤️ Mark songs as favorites
+- 📥 Download songs for offline use
+- 📝 Extract lyrics from audio files (Vietnamese supported)
+- 🐳 Docker Compose for easy deployment (frontend & backend)
+- 🔥 Fast Whisper-based lyrics transcription (multi-threaded)
+- Persistent storage for uploads, downloads, and database
 
-### `npm start`
+## Project Structure
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+```
+my-music-app/
+├── backend/                  # Flask backend
+│   ├── app/                  # Application code
+│   ├── instance/             # Instance folder for configuration
+│   ├── requirements.txt       # Python dependencies
+│   └── Dockerfile            # Dockerfile for backend
+├── frontend/                 # React frontend
+│   ├── public/               # Public files
+│   ├── src/                  # React components and hooks
+│   ├── package.json           # JavaScript dependencies
+│   └── Dockerfile            # Dockerfile for frontend
+├── docker-compose.yml        # Docker Compose file
+└── README.md                 # Project documentation
+```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Getting Started
 
-### `npm test`
+To get a local copy up and running, follow these steps.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Prerequisites
 
-### `npm run build`
+- Docker and Docker Compose installed on your machine.
+- Basic knowledge of React and Flask.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Installation
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. Clone the repo
+   ```bash
+   git clone https://github.com/yourusername/my-music-app.git
+   ```
+2. Change directory to the project folder
+   ```bash
+   cd my-music-app
+   ```
+3. Copy the example environment file
+   ```bash
+   cp backend/.env.example backend/.env
+   ```
+4. Update the environment variables in `backend/.env` as needed.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Running the Application
 
-### `npm run eject`
+1. Build and start the containers
+   ```bash
+   docker-compose up --build
+   ```
+2. Access the application at `http://localhost:3000`.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Stopping the Application
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+To stop the application, press `CTRL+C` in the terminal where it's running, and then run:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```bash
+docker-compose down
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Usage
 
-## Learn More
+- **Frontend**: The React app provides a user interface for interacting with the music library, uploading files, and managing favorites.
+- **Backend**: The Flask API handles requests from the frontend, processes audio files, and interacts with the database.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Contributing
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Contributions are welcome! Please follow these steps:
 
-### Code Splitting
+1. Fork the repository
+2. Create a new branch (`git checkout -b feature/YourFeature`)
+3. Make your changes
+4. Commit your changes (`git commit -m 'Add some feature'`)
+5. Push to the branch (`git push origin feature/YourFeature`)
+6. Open a pull request
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Please ensure your code follows the project's coding standards and includes appropriate tests.
 
-### Analyzing the Bundle Size
+## License
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-### Making a Progressive Web App
+## Acknowledgments
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- Inspired by various open-source projects and tutorials.
+- Thanks to the contributors and the community for their support.
 
-### Advanced Configuration
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This README was generated with ❤️ by [Your Name](https://github.com/yourusername).

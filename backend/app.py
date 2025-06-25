@@ -4,8 +4,14 @@ from routes import api
 from database import init_db
 
 def create_app():
-    app = Flask(__name__, static_folder='../build', static_url_path='')
-    CORS(app)
+    app = Flask(__name__)
+    CORS(app, resources={
+        r"/api/*": {
+            "origins": ["http://localhost:3000", "http://frontend:3000"],
+            "methods": ["GET", "POST", "PUT", "DELETE"],
+            "allow_headers": ["Content-Type"]
+        }
+    })
     
     # Initialize database
     init_db()
@@ -13,12 +19,8 @@ def create_app():
     # Register blueprints
     app.register_blueprint(api, url_prefix='/api')
     
-    @app.route('/')
-    def serve():
-        return send_from_directory(app.static_folder, 'index.html') # type: ignore
-        
     return app
 
 if __name__ == '__main__':
     app = create_app()
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)
