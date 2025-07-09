@@ -1,0 +1,7 @@
+flask
+flask-cors
+werkzeug
+requests
+# faster-whisper
+# pydub
+# numpy
