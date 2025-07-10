@@ -7,7 +7,7 @@ def create_app():
     app = Flask(__name__)
     CORS(app, resources={
         r"/api/*": {
-            "origins": ["http://localhost:3000", "http://frontend:3000"],
+            "origins": ["*"],
             "methods": ["GET", "POST", "PUT", "DELETE"],
             "allow_headers": ["Content-Type"]
         }

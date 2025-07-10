@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './NowPlaying.css';
 import waves from '../assets/image/Waves.png';
+import API_URL from '../config';
 
 class NowPlaying extends Component {
     state = {
@@ -54,13 +55,13 @@ class NowPlaying extends Component {
 
     checkLocalSource = async (songId) => {
         try {
-            const response = await fetch(`http://localhost:5000/api/download/${songId}`);
+            const response = await fetch(`${API_URL}/api/download/${songId}`);
             if (response.ok) {
                 const data = await response.json();
                 const filename = data.local_path.replace(/^.*[\\/]/, '');
                 console.log('Local source:', filename);
-                const localUrl = `http://localhost:5000/api/files/${encodeURIComponent(filename)}`;
-                // const localUrl = `http://localhost:5000/api/files/${data.local_path.split('/').pop()}`;
+                const localUrl = `${API_URL}/api/files/${encodeURIComponent(filename)}`;
+                // const localUrl = `${API_URL}/api/files/${data.local_path.split('/').pop()}`;
                 this.setState({ localSource: localUrl });
                 return;
             }
@@ -134,7 +135,7 @@ class NowPlaying extends Component {
         this.setState(prevState => ({ isFavorite: !prevState.isFavorite }));
 
         try {
-            const response = await fetch(`http://localhost:5000/api/song/${currentSong.id}/favorite`, {
+            const response = await fetch(`${API_URL}/api/song/${currentSong.id}/favorite`, {
                 method: 'POST'
             });
 
@@ -164,13 +165,13 @@ class NowPlaying extends Component {
         const filename = currentSong?.localPath ? currentSong.localPath.split('\\').pop().split('/').pop() : '';
         const imageFilename = currentSong?.image ? currentSong.image.split('\\').pop().split('/').pop() : '';
         const audioSource = filename
-            ? `http://localhost:5000/api/files/${encodeURIComponent(filename)}`
+            ? `${API_URL}/api/files/${encodeURIComponent(filename)}`
             : (localSource || currentSong?.source || '');
 
         console.log('Audio source:', audioSource);
 
         const imageSource = currentSong?.isDownloaded
-            ? `http://localhost:5000/api/files/${encodeURIComponent(imageFilename)}`
+            ? `${API_URL}/api/files/${encodeURIComponent(imageFilename)}`
             : currentSong?.image;
 
         return (

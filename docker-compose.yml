@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./src:/app/src
+      - /app/node_modules
+    environment:
+      - REACT_APP_API_URL=http://localhost:5000
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./backend:/app
+      - type: bind
+        source: /uploads
+        target: /app/uploads
+      - type: bind
+        source: ./storage/downloads
+        target: /downloads
+      - type: volume
+        source: database-data
+        target: /app/data
+    environment:
+      - FLASK_ENV=development
+      - FLASK_APP=app.py
+      - FLASK_DEBUG=1
+    networks:
+      - app-network
+
+volumes:
+  database-data:
+
+networks:
+  app-network:
+    driver: bridge
