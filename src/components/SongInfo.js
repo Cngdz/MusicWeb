@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './SongInfo.css';
-
+import config from '../config';
+const API_URL = config.apiUrl;
 class SongInfo extends Component {
     state = {
         downloading: false,
@@ -25,7 +26,7 @@ class SongInfo extends Component {
         this.setState({ downloading: true, error: null });
 
         try {
-            const response = await fetch(`http://localhost:5000/api/download/${id}`, {
+            const response = await fetch(`${API_URL}/api/download/${id}`, {
                 method: 'POST'
             });
 

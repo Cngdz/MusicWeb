@@ -5,6 +5,7 @@ from download_manager import DownloadManager
 from upload_manager import UploadManager
 from models import Song
 
+
 api = Blueprint('api', __name__)
 download_manager = DownloadManager()
 upload_manager = UploadManager()
@@ -24,7 +25,7 @@ def upload_song():
             return jsonify({'error': 'No file provided'}), 400
 
         file_path = upload_manager.save_file(file)
-        source = f'http://localhost:5000/api/uploads/{os.path.basename(file_path)}'
+        source = f'https://seahorse-app-3hijq.ondigitalocean.app/api/uploads/{os.path.basename(file_path)}'
 
         conn = get_db()
         cursor = conn.cursor()

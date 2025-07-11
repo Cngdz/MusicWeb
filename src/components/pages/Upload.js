@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './Upload.css';
-
+import config from '../../config';
+const API_URL = config.apiUrl;
 class Upload extends Component {
     state = {
         title: '',
@@ -30,7 +31,7 @@ class Upload extends Component {
         formData.append('file', this.state.file);
 
         try {
-            const response = await fetch('http://localhost:5000/api/upload', {
+            const response = await fetch(`${API_URL}/api/upload`, {
                 method: 'POST',
                 body: formData
             });

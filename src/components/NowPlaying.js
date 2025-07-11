@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import './NowPlaying.css';
 import waves from '../assets/image/Waves.png';
-import API_URL from '../config';
+import config from '../config';
+const API_URL = config.apiUrl;
 
 class NowPlaying extends Component {
     state = {

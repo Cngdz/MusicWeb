@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import SongInfo from '../SongInfo';
 import './ListSong.css';  // Reuse ListSong styles
-
+import config from '../../config';
+const API_URL = config.apiUrl;
 class DownloadList extends Component {
     state = {
         downloads: [],
@@ -15,7 +16,7 @@ class DownloadList extends Component {
 
     fetchDownloads = async () => {
         try {
-            const response = await fetch('http://localhost:5000/api/downloads');
+            const response = await fetch(`${API_URL}/api/downloads`);
             const data = await response.json();
             this.setState({
                 downloads: data.map(song => ({ ...song, isDownloaded: true })),

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import ListSong from '../ListSong';
 import './Library.css';
-
+import config from '../../config';
+const API_URL = config.apiUrl;
 class Library extends Component {
     state = {
         activeTab: 'favorites',
@@ -18,7 +19,7 @@ class Library extends Component {
     fetchUploads = async () => {
         this.setState({ loading: true });
         try {
-            const response = await fetch('http://localhost:5000/api/uploads');
+            const response = await fetch(`${API_URL}/api/uploads`);
             const data = await response.json();
             this.setState({ uploads: data, loading: false });
         } catch (error) {
@@ -29,7 +30,7 @@ class Library extends Component {
     fetchDownloads = async () => {
         this.setState({ loading: true });
         try {
-            const response = await fetch('http://localhost:5000/api/downloads');
+            const response = await fetch(`${API_URL}/api/downloads`);
             const data = await response.json();
             this.setState({ downloads: data, loading: false });
         } catch (error) {
@@ -108,8 +109,8 @@ class Library extends Component {
                                     const songWithLocalPaths = {
                                         ...song,
                                         isDownloaded: true,
-                                        source: `http://localhost:5000/api/files/${encodeURIComponent(filename)}`,
-                                        image: `http://localhost:5000/api/files/${encodeURIComponent(imageFilename)}`
+                                        source: `${API_URL}/api/files/${encodeURIComponent(filename)}`,
+                                        image: `${API_URL}/api/files/${encodeURIComponent(imageFilename)}`
                                     };
                                     return (
                                         <div key={song.id} className="songInfo" onClick={() => onSongSelect(songWithLocalPaths)}>

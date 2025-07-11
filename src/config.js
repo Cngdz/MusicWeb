@@ -1,5 +1,5 @@
 const config = {
-    apiUrl: process.env.REACT_APP_API_URL || 'http://localhost:5000',
+    apiUrl: process.env.REACT_APP_API_URL || "https://seahorse-app-3hijq.ondigitalocean.app",
     endpoints: {
         upload: '/api/upload',
         downloads: '/api/downloads',

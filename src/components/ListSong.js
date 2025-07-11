@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import './ListSong.css';
 import SongInfo from './SongInfo';
-
+import config from '../config';
+const API_URL = config.apiUrl;
 class ListSong extends Component {
     state = {
         songs: [],
@@ -13,11 +14,12 @@ class ListSong extends Component {
     componentDidMount() {
         this.fetchAllSongs();
     }
-
     fetchAllSongs = async () => {
         try {
             // Fetch downloaded songs first
-            const downloadResponse = await fetch('http://localhost:5000/api/downloads');
+            console.log(API_URL)
+            console.log(`${API_URL}/api/downloads`);
+            const downloadResponse = await fetch(`${API_URL}/api/downloads`);
             if (downloadResponse.ok) {
                 const downloadedData = await downloadResponse.json();
                 const downloadedMap = {};
@@ -28,7 +30,7 @@ class ListSong extends Component {
             }
 
             // Then fetch all songs
-            const response = await fetch('http://localhost:5000/api/songs');
+            const response = await fetch(`${API_URL}/api/songs`);
             const data = await response.json();
 
             // Merge data with downloaded info
